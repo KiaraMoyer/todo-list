@@ -1,5 +1,6 @@
 import React from 'react';
 import AddTaskForm from './AddTaskForm';
+import './ToDoList.css';
 
 const defaultTasks = [
   {
@@ -26,7 +27,7 @@ const TaskTable = (props) => {
   let [tasks, setTasks] = React.useState(defaultTasks)
 
   const HeaderRow = (props) => {
-    return <h2>To Do List</h2>
+    return <h2 className="Header">To Do List</h2>
   }
 
   var rows = tasks.sort(function (a, b) {
@@ -59,8 +60,8 @@ const TaskTable = (props) => {
 const TaskTableRow = (props) => {
   const task = props.tasks;
   return <tr>
-    <td>ID: {task.id}</td>
-    <td>Task: {task.desc}</td>
+    <td className="Id">ID: {task.id}</td>
+    <td className="Tasks">Task: {task.desc}</td>
   </tr>
 }
 
