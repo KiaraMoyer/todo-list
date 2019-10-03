@@ -12,13 +12,17 @@ const AddTaskForm = (props) => {
         props.handleSubmit(desc)
     }
 
+    const clearInput = () => {
+        setDesc('')
+    }
+
     return (
         <div>
             <span>
                 <label htmlFor="desc">Task: </label>
-                <input onChange={descHandler} value={desc} type="text" name="desc" />
+                <input id="textform" onChange={descHandler} value={desc} type="text" name="desc" />
             </span>
-            <button onClick={handleSubmit}>Add</button>
+            <button onClick={() => { handleSubmit(); clearInput(); }}>Add</button>
         </div>
     );
 };
