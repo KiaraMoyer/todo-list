@@ -1,0 +1,11 @@
+.Header {
+    text-align: center;
+    color: red;
+}
+.Tasks {
+    text-align: left;
+}
+.Id {
+    text-align: center;
+    color: indigo;
+}
