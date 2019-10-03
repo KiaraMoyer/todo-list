@@ -1,9 +1,10 @@
 import React from 'react';
+import AddTaskForm from './AddTaskForm';
 
-const tasks = [
+const defaultTasks = [
   {
     id: 1,
-    desc: 'Mow the Lawn',
+    desc: 'Mow the lawn',
   },
   {
     id: 2,
@@ -19,8 +20,16 @@ const tasks = [
   }
 ]
 
+
+
 const TaskTable = (props) => {
-  var rows = tasks.sort(function(a,b) {
+  let [tasks, setTasks] = React.useState(defaultTasks)
+
+  const HeaderRow = (props) => {
+    return <h2>To Do List</h2>
+  }
+
+  var rows = tasks.sort(function (a, b) {
     return a.id - b.id
   })
   rows = tasks.map(tasks => <TaskTable task={tasks}/>)
@@ -29,16 +38,29 @@ const TaskTable = (props) => {
     rows.push(<TaskTable tasks={tasks[i]}/>)
   }
 
-  return <table>
-    {tasks.map(task => <TaskTableRow tasks={task}/>)}
-  </table>
+  const handleSubmit = (desc) => {
+    const newTask = {
+      id: tasks.length,
+      desc: desc
+    };
+    const newTasks = [...tasks]
+    newTasks.push(newTask)
+    setTasks(newTasks)
+  }
+  return <>
+    <table className='table'>
+      <HeaderRow />
+      {tasks.map(task => <TaskTableRow tasks={task}/>)}
+    </table>
+    <AddTaskForm handleSubmit={handleSubmit}/>
+    </>
 }
 
 const TaskTableRow = (props) => {
   const task = props.tasks;
   return <tr>
-    <td>{task.id}</td>
-    <td>{task.desc}</td>
+    <td>ID: {task.id}</td>
+    <td>Task: {task.desc}</td>
   </tr>
 }
 
