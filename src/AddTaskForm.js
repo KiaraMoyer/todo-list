@@ -8,7 +8,7 @@ const AddTaskForm = (props) => {
         setDesc(currentValue)
     }
 
-    const handleSubmit = () => {
+    const onSubmit = () => {
         props.handleSubmit(desc)
     }
 
@@ -22,7 +22,7 @@ const AddTaskForm = (props) => {
                 <label htmlFor="desc">Task: </label>
                 <input id="textform" onChange={descHandler} value={desc} type="text" name="desc" />
             </span>
-            <button onClick={() => { handleSubmit(); clearInput(); }}>Add</button>
+            <button onClick={() => { onSubmit(); clearInput(); }}>Add</button>
         </div>
     );
 };

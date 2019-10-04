@@ -1,39 +1,24 @@
 import React from 'react';
 import AddTaskForm from './AddTaskForm';
 import './ToDoList.css';
-
-const defaultTasks = [
-  {
-    id: 1,
-    desc: 'Mow the lawn',
-  },
-  {
-    id: 2,
-    desc: 'Feed the cow',
-  },
-  {
-    id: 3,
-    desc: 'Do the dishes',
-  },
-  {
-    id: 0,
-    desc: 'Do the things',
-  }
-]
-
+import $ from 'jquery';
 
 
 const TaskTable = (props) => {
-  let [tasks, setTasks] = React.useState(defaultTasks)
+  let [tasks, setTasks] = React.useState(1)
+
+  React.useEffect(() => {
+    $.ajax(`https://jsonplaceholder.typicode.com/todos`).then((result) => {
+      console.log(result);
+      setTasks(result.data)
+    })
+  })
 
   const HeaderRow = (props) => {
     return <h2 className="Header">To Do List</h2>
   }
 
-  var rows = tasks.sort(function (a, b) {
-    return a.id - b.id
-  })
-  rows = tasks.map(tasks => <TaskTable task={tasks}/>)
+  var rows = tasks.map(tasks => <TaskTable task={tasks}/>)
 
   for (let i=0; i<tasks.length; i++) {
     rows.push(<TaskTable tasks={tasks[i]}/>)
