@@ -2,10 +2,16 @@
     text-align: center;
     color: red;
 }
+.userId {
+    text-align: center;
+    color: indigo;
+}
+.Id {
+    text-align: left;
+}
 .Tasks {
     text-align: left;
 }
-.Id {
-    text-align: center;
-    color: indigo;
+.Completed {
+    text-align: left;
 }

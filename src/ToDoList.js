@@ -1,7 +1,7 @@
 import React from 'react';
 import AddTaskForm from './AddTaskForm';
 import './ToDoList.css';
-import $ from 'jquery';
+// import $ from 'jquery';
 
 const defaultTasks = [
   {
@@ -21,15 +21,21 @@ const defaultTasks = [
 const TaskTable = (props) => {
   let [tasks, setTasks] = React.useState(defaultTasks)
 
-  React.useEffect(() => {
-    $.ajax(`https://jsonplaceholder.typicode.com/todos/`).then((result) => {
-      console.log(result);
-      setTasks(result.data)
-    })
-  })
+  // React.useEffect(() => {
+  //   $.ajax('https://jsonplaceholder.typicode.com/todos/1').then((result) => {
+  //     console.log(result);
+  //     setTasks(result.data)
+  //   })
+  // })
+
+  fetch('https://jsonplaceholder.typicode.com/todos/')
+    .then(response => response.json())
+    .then((result) => {
+      setTasks(result);
+    });
 
   const HeaderRow = (props) => {
-    return <h2 className="Header">To Do List</h2>
+    return <th className="Header">To Do List</th>
   }
 
   var rows = tasks.map(tasks => <TaskTable task={tasks}/>)
@@ -51,8 +57,12 @@ const TaskTable = (props) => {
   }
   return <>
     <table className='table'>
-      <HeaderRow />
-      {tasks.map(task => <TaskTableRow tasks={task}/>)}
+      <thead>
+        <tr>
+          <HeaderRow tasks={tasks}/>
+        </tr>
+      </thead>
+      {tasks.map(t => <TaskTableRow tasks={t} key={t.id}/>)}
     </table>
     <AddTaskForm handleSubmit={handleSubmit}/>
     </>
@@ -60,10 +70,16 @@ const TaskTable = (props) => {
 
 const TaskTableRow = (props) => {
   const task = props.tasks;
-  return <tr>
-    <td className="Id">ID: {task.id}</td>
-    <td className="Tasks">Task: {task.desc}</td>
-  </tr>
+  return (
+    <tbody>
+      <tr>
+        <td className="userId">User ID: {task.userId}</td>
+        <td className="Id">ID: {task.id}</td>
+        <td className="Tasks">Task: {task.title}</td>
+        <td className="Completed">Completed: {task.completed.toString()}</td>
+      </tr>
+    </tbody>
+  );
 }
 
 export default TaskTable
