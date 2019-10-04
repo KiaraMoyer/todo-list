@@ -3,12 +3,26 @@ import AddTaskForm from './AddTaskForm';
 import './ToDoList.css';
 import $ from 'jquery';
 
+const defaultTasks = [
+  {
+    userId: 1,
+    id: 1,
+    title: 'test',
+    completed: false,
+  },
+  {
+    userId: 1,
+    id: 2,
+    title: 'testing',
+    completed: true,
+  },
+]
 
 const TaskTable = (props) => {
-  let [tasks, setTasks] = React.useState(1)
+  let [tasks, setTasks] = React.useState(defaultTasks)
 
   React.useEffect(() => {
-    $.ajax(`https://jsonplaceholder.typicode.com/todos`).then((result) => {
+    $.ajax(`https://jsonplaceholder.typicode.com/todos/`).then((result) => {
       console.log(result);
       setTasks(result.data)
     })
@@ -24,10 +38,12 @@ const TaskTable = (props) => {
     rows.push(<TaskTable tasks={tasks[i]}/>)
   }
 
-  const handleSubmit = (desc) => {
+  const handleSubmit = (userId, id, title, completed) => {
     const newTask = {
-      id: tasks.length,
-      desc: desc
+      userId: userId,
+      id: id,
+      title: title,
+      completed: completed
     };
     const newTasks = [...tasks]
     newTasks.push(newTask)
