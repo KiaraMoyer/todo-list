@@ -1,7 +1,7 @@
 import React from 'react';
 import AddTaskForm from './AddTaskForm';
 import './ToDoList.css';
-// import $ from 'jquery';
+import $ from 'jquery';
 
 const defaultTasks = [
   {
@@ -18,21 +18,20 @@ const defaultTasks = [
   },
 ]
 
-const TaskTable = (props) => {
+const TaskTable = () => {
   let [tasks, setTasks] = React.useState(defaultTasks)
 
-  // React.useEffect(() => {
-  //   $.ajax('https://jsonplaceholder.typicode.com/todos/1').then((result) => {
-  //     console.log(result);
-  //     setTasks(result.data)
-  //   })
-  // })
+  React.useEffect(() => {
+    $.ajax('https://jsonplaceholder.typicode.com/todos/').then((result) => {
+      setTasks(result)
+    })
+  })
 
-  fetch('https://jsonplaceholder.typicode.com/todos/')
-    .then(response => response.json())
-    .then((result) => {
-      setTasks(result);
-    });
+  // fetch('https://jsonplaceholder.typicode.com/todos/')
+  //   .then(response => response.json())
+  //   .then((result) => {
+  //     setTasks(result);
+  //   });
 
   const HeaderRow = (props) => {
     return <th className="Header">To Do List</th>
@@ -44,15 +43,16 @@ const TaskTable = (props) => {
     rows.push(<TaskTable tasks={tasks[i]}/>)
   }
 
-  const handleSubmit = (userId, id, title, completed) => {
+  const handleSubmit = (userId, title, completed) => {
     const newTask = {
       userId: userId,
-      id: id,
+      id: tasks.length + 1,
       title: title,
       completed: completed
     };
     const newTasks = [...tasks]
     newTasks.push(newTask)
+    console.log(newTasks)
     setTasks(newTasks)
   }
   return <>
