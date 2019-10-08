@@ -33,7 +33,7 @@ const TaskTable = () => {
   //     setTasks(result);
   //   });
 
-  const HeaderRow = (props) => {
+  const HeaderRow = () => {
     return <th className="Header">To Do List</th>
   }
 
@@ -52,6 +52,7 @@ const TaskTable = () => {
     };
     const newTasks = [...tasks]
     newTasks.push(newTask)
+    console.log(newTask)
     console.log(newTasks)
     setTasks(newTasks)
   }
